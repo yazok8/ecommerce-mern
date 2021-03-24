@@ -2,10 +2,10 @@ import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 
-const Header = (props) => {
+const Header = () => {
   return (
     <header>
-      <Navbar bg="light" expand="lg" collapseOnSelect>
+      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/" className="nav-link">
             <Navbar.Brand>
@@ -28,11 +28,6 @@ const Header = (props) => {
               <LinkContainer to="/signin" className="nav-link">
                 <Nav.Link>
                   <i className="fas fa-user"></i> Sign In
-                </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/signup" className="nav-link">
-                <Nav.Link>
-                  <i className="fas fa-user-plus"></i> Sign Up
                 </Nav.Link>
               </LinkContainer>
               <LinkContainer to="/cart" className="nav-link">
