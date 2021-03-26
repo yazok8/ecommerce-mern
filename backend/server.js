@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import colors from 'colors'
+import authRoutes from './routes/authRoutes.js'
 import shopRoutes from './routes/shopRoutes.js'
 import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
@@ -17,7 +18,11 @@ app.get('/', (req, res) => {
   res.send('API is running')
 })
 
+app.use(express.json())
+
 app.use('/api/shop', shopRoutes)
+
+app.use('/api/users', authRoutes)
 
 //Error NotFound
 

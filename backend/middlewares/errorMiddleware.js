@@ -13,11 +13,4 @@ const notFound = (req, res, next) => {
   next(error)
 }
 
-const userMiddleware = (req, res, next) => {
-  if (req.user.role !== 'user') {
-    return res.status(400).json({ message: 'User access denied' })
-  }
-  next()
-}
-
-export { errorHandler, notFound, userMiddleware }
+export { errorHandler, notFound }
