@@ -86,17 +86,14 @@ const getUserProfile = asyncHandler(async (req, res) => {
 //access  Private
 
 const updateUserProfile = asyncHandler(async (req, res) => {
-  const users = req.app.locals.users
+  const user = await User.findById(req.user.id)
   const { name, email, password } = req.body
-  const _id = ObjectID(req.body._id)
+  if (name) user.name = name
+  if (email) user.email = email
+  if (password) user.password = password
+  await user.save()
 
-  users.updateOne({ _id }, { $set: { name, emaik, password } }, (err) => {
-    if (err) {
-      throw err
-    }
-
-    res.redirect('/users')
-  })
+  res.json(user)
 })
 
 export { signInUser, registerUser, getUserProfile, updateUserProfile }

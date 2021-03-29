@@ -14,6 +14,9 @@ router.post('/login', signInUser)
 
 router.post('/signup', registerUser)
 
-router.route('/profile').get(protect, getUserProfile).put(updateUserProfile)
+router
+  .route('/profile')
+  .get(protect, getUserProfile)
+  .put(protect, updateUserProfile)
 
 export default router
