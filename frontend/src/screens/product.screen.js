@@ -25,7 +25,6 @@ const ProductScreen = ({ history, match }) => {
 
   return (
     <div>
-      <div>{product.name}</div>
       <Link to="/" className="btn btn-dark my-3">
         Go Back
       </Link>
@@ -35,10 +34,15 @@ const ProductScreen = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Row>
-          <Col md={6}>
-            <Image src={product.image} alt={product.name} fluid />
+          <Col md={5}>
+            <Image
+              src={product.image}
+              alt={product.name}
+              fluid
+              style={{ display: 'inline' }}
+            />
           </Col>
-          <Col md={3}>
+          <Col md={4}>
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <h3>{product.name}</h3>
@@ -51,7 +55,7 @@ const ProductScreen = ({ history, match }) => {
             <ListGroup>Price: ${product.price}</ListGroup>
             <ListGroup>description: {product.description}</ListGroup>
           </Col>
-          <Col md={3}>
+          <Col md={3} style={{}}>
             <Card>
               <ListGroup variant="flush">
                 <ListGroup.Item>

@@ -16,7 +16,9 @@ h2 {
 }
 
 h3 {
+  font-size: 17px;
   padding: 0.1rem;
+  display: inline;
 }
 
 .rating span {

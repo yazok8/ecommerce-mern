@@ -8,21 +8,13 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
       min: 3,
-      max: 20,
+      max: 30,
     },
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true,
-    },
-    username: {
-      type: String,
-      required: true,
-      trim: true,
-      unique: true,
-      index: true,
       lowercase: true,
     },
     password: {
@@ -32,7 +24,7 @@ const userSchema = mongoose.Schema(
     isAdmin: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
   },
   {
