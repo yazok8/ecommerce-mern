@@ -6,6 +6,7 @@ import {
   userAuthReducer,
   userRegisterReducer,
   userDetailsReducer,
+  userUpdateProfileReducer,
 } from '../reducers/user.reducer'
 // import directoryReducer from './directoryReducer'
 
@@ -16,4 +17,5 @@ export default combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 })

@@ -2,6 +2,7 @@ import generateToken from '../utils/generateWebToken.js'
 import asyncHandler from 'express-async-handler'
 
 import User from '../models/userModel.js'
+import ObjectID from 'mongodb'
 
 //desc    register user
 //route   Post /api/users/signup
@@ -65,7 +66,9 @@ const signInUser = asyncHandler(async (req, res) => {
 //access  Private
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id)
+  const user = await User.findById(req.user.id)
+
+  console.log(req.user.id)
 
   if (user) {
     res.json({
