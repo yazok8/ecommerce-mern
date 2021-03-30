@@ -2,7 +2,6 @@ import generateToken from '../utils/generateWebToken.js'
 import asyncHandler from 'express-async-handler'
 
 import User from '../models/userModel.js'
-import ObjectID from 'mongodb'
 
 //desc    register user
 //route   Post /api/users/signup
@@ -87,6 +86,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id)
+  console.log(req.user.id)
   const { name, email, password } = req.body
   if (name) user.name = name
   if (email) user.email = email
