@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Nav, Row } from 'react-bootstrap'
-import Stepper from 'react-stepper-horizontal'
 
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   return (
