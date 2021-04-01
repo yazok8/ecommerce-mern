@@ -24,3 +24,9 @@ h3 {
 .rating span {
   margin: 0.1rem;
 }
+
+h5 {
+  padding: 1rem;
+  font-family: serif;
+  text-align: center;
+}

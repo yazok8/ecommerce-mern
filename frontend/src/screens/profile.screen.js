@@ -54,7 +54,7 @@ const ProfileScreen = ({ history, location }) => {
   return (
     <Row>
       <Col md={3}>
-        <h2>User Profile</h2>
+        <h5>User Profile</h5>
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
         {success && <Message variant="success">Profile Updated</Message>}
@@ -106,7 +106,7 @@ const ProfileScreen = ({ history, location }) => {
         </Form>
       </Col>
       <Col md={9}>
-        <h2>My Orders</h2>
+        <h5>My Orders</h5>
       </Col>
     </Row>
   )

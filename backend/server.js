@@ -4,6 +4,7 @@ import connectDB from './config/db.js'
 import colors from 'colors'
 import authRoutes from './routes/authRoutes.js'
 import shopRoutes from './routes/shopRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
 dotenv.config()
@@ -23,6 +24,8 @@ app.use(express.json())
 app.use('/api/shop', shopRoutes)
 
 app.use('/api/users', authRoutes)
+
+app.use('/api/orders', orderRoutes)
 
 //Error NotFound
 
