@@ -8,7 +8,11 @@ import {
   userDetailsReducer,
   userUpdateProfileReducer,
 } from '../reducers/user.reducer'
-import { orderCreateReducer, orderDetailsReducer } from './order.reducer'
+import {
+  orderCreateReducer,
+  orderDetailsReducer,
+  orderPayReducer,
+} from './order.reducer'
 // import directoryReducer from './directoryReducer'
 
 export default combineReducers({
@@ -21,4 +25,5 @@ export default combineReducers({
   cart: cartReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
 })
