@@ -1,10 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
 
-// @desc Create new order
-// @route GET /api/orders
-// @access Private
-
+// Create new order private route GET /api/orders
 const createOrder = asyncHandler(async (req, res) => {
   const {
     orderItems,
@@ -37,10 +34,7 @@ const createOrder = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc Get order by Id
-// @route GET /api/orders/:id
-// @access Private
-
+// Get order by Id private route GET /api/orders/:id
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     'user',
@@ -54,9 +48,7 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc Update order by Id
-// @route GET /api/orders/pay
-// @access Private
+// Update order by Id, private route GET /api/orders/pay
 
 const updateOrderToBePaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
@@ -80,4 +72,12 @@ const updateOrderToBePaid = asyncHandler(async (req, res) => {
   }
 })
 
-export { createOrder, getOrderById, updateOrderToBePaid }
+// Get user logged in orders, private route GET /api/orders/myorders
+
+const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id })
+
+  res.json(orders)
+})
+
+export { createOrder, getOrderById, updateOrderToBePaid, getMyOrders }
