@@ -4,9 +4,7 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import ObjectID from 'mongodb'
 
-//desc    register user
-//route   Post /api/users/signup
-//access  Public
+//desc register user Public route  Post /api/users/signup
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body
@@ -38,9 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 })
 
-//desc    Auth user & get token
-//route   Post /api/users/login
-//access  Public
+//desc  Auth user & get token Public route  Post /api/users/login
 
 const signInUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
@@ -61,9 +57,7 @@ const signInUser = asyncHandler(async (req, res) => {
   }
 })
 
-//desc    get user  profile
-//route   GET /api/users/profile
-//access  Private
+//desc  get user  profile, Private Route GET /api/users/profile
 
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id)
@@ -83,9 +77,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
-//desc    update user profile
-//route   PUT /api/users/profile
-//access  Private
+//desc update user profile, Private route PUT /api/users/profile
 
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id)
@@ -99,4 +91,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   res.json(user)
 })
 
-export { signInUser, registerUser, getUserProfile, updateUserProfile }
+//desc  Get all user profile, Private/admin Route GET /api/users/
+
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({})
+  res.json(users)
+})
+
+export { signInUser, registerUser, getUserProfile, updateUserProfile, getUsers }
