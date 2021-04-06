@@ -64,6 +64,22 @@ const ProductScreen = ({ history, match }) => {
                     <Col>
                       <strong>${product.price}</strong>
                     </Col>
+                    {/* <ul className="images">
+                      {' '}
+                      {[product.image, ...product.images].map((x) => (
+                        <li key={x}>
+                          {' '}
+                          <button
+                            type="button"
+                            className="light"
+                            onClick={() => changeImage(x)}
+                          >
+                            {' '}
+                            <img src={x} alt="product" className="small" />{' '}
+                          </button>{' '}
+                        </li>
+                      ))}{' '}
+                    </ul> */}
                   </Row>
                 </ListGroup.Item>
               </ListGroup>

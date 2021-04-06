@@ -19,25 +19,25 @@ const Header = () => {
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <LinkContainer to="/" className="nav-link">
+          <LinkContainer to="/">
             <Navbar.Brand>
               <img
                 className="img-responsive"
                 src="/ZingImages/logo.png"
                 alt="Chania"
-                style={{ width: '60px' }}
+                style={{ width: ' 80px', padding: '15px' }}
               ></img>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto" style={{ float: 'right' }}>
-              <LinkContainer to="/shop" className="nav-link">
+            <Nav className="ml-auto" style={{ textAlign: 'right' }}>
+              <LinkContainer to="/shop">
                 <Nav.Link>
                   <i className="fas fa-shopping-bag"></i> Shop
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/cart" className="nav-link">
+              <LinkContainer to="/cart">
                 <Nav.Link>
                   <i className="fas fa-shopping-cart"></i>Cart
                 </Nav.Link>
@@ -53,7 +53,7 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer to="/login" className="nav-link">
+                <LinkContainer to="/login">
                   <Nav.Link>
                     <i className="fas fa-user"></i> Sign In
                   </Nav.Link>
