@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect fixed="top">
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
@@ -25,14 +25,14 @@ const Header = () => {
                 className="img-responsive"
                 src="/ZingImages/logo.png"
                 alt="Chania"
-                style={{ width: ' 80px', padding: '15px' }}
+                style={{ width: '60px' }}
               ></img>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto" style={{ textAlign: 'right' }}>
-              <LinkContainer to="/shop">
+              <LinkContainer to="/products">
                 <Nav.Link>
                   <i className="fas fa-shopping-bag"></i> Shop
                 </Nav.Link>
@@ -58,6 +58,19 @@ const Header = () => {
                     <i className="fas fa-user"></i> Sign In
                   </Nav.Link>
                 </LinkContainer>
+              )}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title="Admin" id="adminmenu">
+                  <LinkContainer to="/admin/userlist">
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="admin/productList">
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="admin/orderList">
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

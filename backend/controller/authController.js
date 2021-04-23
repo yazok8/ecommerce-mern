@@ -1,5 +1,6 @@
 import generateToken from '../utils/generateWebToken.js'
 import asyncHandler from 'express-async-handler'
+import mongoose from 'mongoose'
 
 import User from '../models/userModel.js'
 import ObjectID from 'mongodb'
@@ -91,11 +92,60 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   res.json(user)
 })
 
-//desc  Get all user profile, Private/admin Route GET /api/users/
+//desc  Get all user profile, Private /api/users Route GET /api/users/
 
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({})
   res.json(users)
 })
 
-export { signInUser, registerUser, getUserProfile, updateUserProfile, getUsers }
+//desc Delete user, Private route DELETE /api/users/:id Private Admin Route
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+  console.log(req.user.id)
+
+  if (user) {
+    await user.remove()
+    res.json({ message: 'user removed' })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
+//desc get user by Id, Private route GET /api/users/:id Private Admin route
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password')
+
+  if (user) {
+    res.json(user)
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
+//desc update user by Id, Private route Put /api/users/:id Private Admin route
+
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+  console.log(req.user.id)
+  const { name, email, password } = req.body
+  if (name) user.name = name
+  if (email) user.email = email
+  user.isAdmin = req.body.isAdmin == undefined ? user.isAdmin : req.body.isAdmin
+  await user.save()
+
+  res.json(user)
+})
+
+export {
+  signInUser,
+  registerUser,
+  getUserProfile,
+  updateUserProfile,
+  getUsers,
+  deleteUser,
+  getUserById,
+  updateUser,
+}

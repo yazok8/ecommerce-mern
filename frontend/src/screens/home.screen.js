@@ -6,6 +6,8 @@ import Message from '../components/Message'
 import { Col, Row } from 'react-bootstrap'
 import { listProducts } from '../actions/shop/shop.action'
 
+// I have changed the shop route to products in all files but is still throwing error
+
 const HomeScreen = () => {
   const dispatch = useDispatch()
 

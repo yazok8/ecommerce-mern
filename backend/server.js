@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 app.use(express.json())
 
-app.use('/api/shop', shopRoutes)
+app.use('/api/products', shopRoutes)
 
 app.use('/api/users', authRoutes)
 
