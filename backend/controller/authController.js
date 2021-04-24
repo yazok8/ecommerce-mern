@@ -124,7 +124,6 @@ const getUserById = asyncHandler(async (req, res) => {
     throw new Error('User not found')
   }
 })
-
 //desc update user by Id, Private route Put /api/users/:id Private Admin route
 
 const updateUser = asyncHandler(async (req, res) => {
