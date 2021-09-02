@@ -74,7 +74,7 @@ const UserEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="email">
-              <Form.Label>Email Address</Form.Label>
+              <Form.Label>Email:</Form.Label>
               <Form.Control
                 type="Email"
                 placeholder="Enter Email"
