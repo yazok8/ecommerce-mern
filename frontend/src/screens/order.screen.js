@@ -84,19 +84,17 @@ const OrderScreen = ({ match }) => {
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
-                {' '}
                 <strong>Name:</strong> {order.user.name}
               </p>
 
               <p>
-                {' '}
-                Email:{' '}
+                Email:
                 <a href={`mailto:${order.user.emal}`}>{order.user.email}</a>
               </p>
               <p>
                 <strong>Address: </strong>
-                {order.shippingAddress.address}, {order.shippingAddress.city}{' '}
-                {order.shippingAddress.postalCode},{' '}
+                {order.shippingAddress.address}, {order.shippingAddress.city}
+                {order.shippingAddress.postalCode},
                 {order.shippingAddress.country}
               </p>
 
@@ -185,7 +183,7 @@ const OrderScreen = ({ match }) => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.notPaid && (
+              {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? (
