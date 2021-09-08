@@ -1,4 +1,5 @@
 import express from 'express'
+import morgan from 'morgan'
 import path from 'path'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
@@ -15,11 +16,15 @@ connectDB()
 
 const app = express()
 
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  app.use(morgan('dev'))
+}
+
+app.use(express.json())
+
 const __dirname = path.resolve()
 
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
-
-app.use(express.json())
 
 app.use('/api/products', shopRoutes)
 

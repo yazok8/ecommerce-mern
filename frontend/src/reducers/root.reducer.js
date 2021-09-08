@@ -23,6 +23,7 @@ import {
   orderMyListReducer,
   orderPayReducer,
   orderListReducer,
+  orderDeliveryReducer,
 } from './order.reducer'
 // import directoryReducer from './directoryReducer'
 
@@ -42,6 +43,7 @@ export default combineReducers({
   cart: cartReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
+  orderDelivery: orderDeliveryReducer,
   orderPay: orderPayReducer,
   orderMyList: orderMyListReducer,
   orderList: orderListReducer,

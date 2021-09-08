@@ -14,6 +14,9 @@ import {
   ORDER_LIST_REQUEST,
   ORDER_LIST_SUCCESS,
   ORDER_LIST_FAIL,
+  ORDER_DELIVERY_REQUEST,
+  ORDER_DELIVERY_SUCCESS,
+  ORDER_DELIVERY_FAIL,
 } from './order.types'
 
 import axios from 'axios'
@@ -117,6 +120,42 @@ export const payOrder =
       })
     }
   }
+
+export const deliveryOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_DELIVERY_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.put(
+      `/api/orders/${order._id}/delivered`,
+      {},
+      config
+    )
+
+    dispatch({
+      type: ORDER_DELIVERY_SUCCESS,
+      payload: data,
+    })
+  } catch (err) {
+    dispatch({
+      type: ORDER_DELIVERY_FAIL,
+      payload:
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
+    })
+  }
+}
 
 export const listMyOrders = () => async (dispatch, getState) => {
   try {

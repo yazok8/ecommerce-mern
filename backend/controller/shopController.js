@@ -5,7 +5,6 @@ import { admin, protect } from '../middlewares/userMiddleware.js'
 // desc fetch all shop products...
 // route GET /api/shop...
 // access Public
-
 const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({})
   res.json({ products })
@@ -14,7 +13,6 @@ const getProducts = asyncHandler(async (req, res) => {
 // desc fetch a single product...
 // route GET /api/shop/:id...
 // access Public
-
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
@@ -26,11 +24,10 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 })
 
-// desc fetch a single product...
-// route DELETE /api/shop/:id...
-// access Public
-
-const deletePorduct = asyncHandler(async (req, res) => {
+// desc detel a product
+// route DELETE /api/products/:id
+// access Private admin
+const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   //we can use use to only enable only the admin who creates the product to be able to delete the product
@@ -46,8 +43,8 @@ const deletePorduct = asyncHandler(async (req, res) => {
 })
 
 // desc create a product
-// route CREATE /api/shop
-// access Private
+// route CREATE /api/products
+// access Private admin
 
 const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
@@ -67,8 +64,8 @@ const createProduct = asyncHandler(async (req, res) => {
 })
 
 // desc update a product
-// route PUT /api/shop/:id
-// access Private
+// route PUT /api/products/:id
+// access Private Admin
 const updateProduct = asyncHandler(async (req, res) => {
   const { name, price, description, image, brand, category, countInStock } =
     req.body
@@ -92,10 +89,51 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 })
 
+// desc create new review
+// route POST /api/products/:id/reviews
+// access Private
+const createReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body
+
+  const product = await Product.findById(req.params.id)
+
+  if (product) {
+    const alreadyRviewed = product.reviews.find(
+      (review) => review.user.toString() === req.user._id.toSring()
+    )
+
+    if (alreadyRviewed) {
+      res.status(400)
+      throw new Error('Product already reviewed')
+    }
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    }
+
+    product.reviews.push(review)
+
+    product.numReviews = product.reviews.length
+
+    product.rating =
+      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews.length
+
+    await product.save()
+    res.status(201).json({ message: 'review added' })
+  } else {
+    res.status(404)
+    throw new Error('Product not found')
+  }
+})
+
 export {
   getProducts,
   getProductById,
-  deletePorduct,
+  deleteProduct,
   createProduct,
   updateProduct,
+  createReview,
 }
