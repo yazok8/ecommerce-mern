@@ -6,6 +6,9 @@ import { admin, protect } from '../middlewares/userMiddleware.js'
 // route GET /api/shop...
 // access Public
 const getProducts = asyncHandler(async (req, res) => {
+  const pageSize = 10
+  const page = Number(req.query.pageNumber) || 1
+
   const keyword = req.query.keyword
     ? {
         name: {
@@ -15,8 +18,12 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {}
 
+  const count = await Product.countDocuments({ ...keyword })
   const products = await Product.find({ ...keyword })
-  res.json({ products })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 // desc fetch a single product...
@@ -138,6 +145,16 @@ const createReview = asyncHandler(async (req, res) => {
   }
 })
 
+// desc GET top rated products
+// route POST /api/products/top
+// access Public
+
+const getTopRatedProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3)
+
+  res.json(products)
+})
+
 export {
   getProducts,
   getProductById,
@@ -145,4 +162,5 @@ export {
   createProduct,
   updateProduct,
   createReview,
+  getTopRatedProducts,
 }

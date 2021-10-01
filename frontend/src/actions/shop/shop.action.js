@@ -19,15 +19,20 @@ import {
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAILURE,
+  TOP_RATED_PRODUCTS_REQUEST,
+  TOP_RATED_PRODUCTS_SUCCESS,
+  TOP_RATED_PRODUCTS_FAILURE,
 } from './shop.types'
 
 export const listProducts =
-  (keyword = '') =>
+  (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST })
 
-      const { data } = await axios.get(`/api/products?keyword=${keyword}`)
+      const { data } = await axios.get(
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      )
 
       dispatch({
         type: PRODUCT_LIST_SUCCESS,
@@ -185,6 +190,29 @@ export const createProductReview =
     } catch (err) {
       dispatch({
         type: PRODUCT_CREATE_REVIEW_FAILURE,
+        payload:
+          err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message,
+      })
+    }
+  }
+
+export const listTopRatedProducts =
+  (keyword = '', pageNumber = '') =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: TOP_RATED_PRODUCTS_REQUEST })
+
+      const { data } = await axios.get(`/api/products/top`)
+
+      dispatch({
+        type: TOP_RATED_PRODUCTS_SUCCESS,
+        payload: data,
+      })
+    } catch (err) {
+      dispatch({
+        type: TOP_RATED_PRODUCTS_FAILURE,
         payload:
           err.response && err.response.data.message
             ? err.response.data.message
