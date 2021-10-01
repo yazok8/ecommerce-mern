@@ -9,6 +9,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating'
+import Meta from '../components/meta'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../actions/shop/shop.types'
 
 const ProductScreen = ({ history, match }) => {
@@ -64,6 +65,7 @@ const ProductScreen = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={5}>
               <Image
