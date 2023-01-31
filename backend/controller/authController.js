@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler'
 import mongoose from 'mongoose'
 
 import User from '../models/userModel.js'
-import ObjectID from 'mongodb'
+
 
 //desc register user Public route  Post /api/users/signup
 
@@ -61,7 +61,8 @@ const signInUser = asyncHandler(async (req, res) => {
 //desc  get user  profile, Private Route GET /api/users/profile
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
+
+  // const user = await User.findById(req.user.id)
 
   console.log(req.user.id)
 
