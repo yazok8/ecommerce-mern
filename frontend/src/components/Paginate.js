@@ -2,24 +2,25 @@ import React from 'react'
 import { Pagination } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
+//instead of props we can pass {pages, page, isAdmin, and keyword}
+const Paginate = (props) => {
   return (
-    pages > 1 && (
+    props.pages > 1 && (
       <Pagination>
         {
           //num is whatever the number of pages is
-          [...Array(pages).keys()].map((num) => (
+          [...Array(props.pages).keys()].map((num) => (
             <LinkContainer
               key={num + 1}
               to={
-                !isAdmin
-                  ? keyword
-                    ? `/search/${keyword}/page/${num + 1}`
+                !props.isAdmin
+                  ? props.keyword
+                    ? `/search/${props.keyword}/page/${num + 1}`
                     : `/page/${num + 1}`
                   : `/admin/productlist/${num + 1}`
               }
             >
-              <Pagination.Item active={num + 1 === page}>
+              <Pagination.Item active={num + 1 === props.page}>
                 {num + 1}
               </Pagination.Item>
             </LinkContainer>
