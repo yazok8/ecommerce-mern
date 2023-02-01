@@ -1,5 +1,4 @@
 import express from 'express'
-import morgan from 'morgan'
 import path from 'path'
 import connectDB from './config/db.js'
 import colors from 'colors'
@@ -7,16 +6,16 @@ import authRoutes from './routes/authRoutes.js'
 import shopRoutes from './routes/shopRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
-import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
+// import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
 
 connectDB()
 
 const app = express()
 
-if (process.env.NODE_ENV === 'DEVELOPMENT') {
-  app.use(morgan('dev'))
-}
+// if (process.env.NODE_ENV === 'DEVELOPMENT') {
+//   app.use(morgan('dev'))
+// }
 
 app.use(express.json())
 
@@ -46,17 +45,12 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-//Error NotFound
+// //Error NotFound
 
-app.use(notFound)
+// app.use(notFound)
 
-app.use(errorHandler)
+// app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 
-app.listen(PORT, () =>
-  console.log(
-    `server running in ${process.env.NODE_ENV} mode on port ${PORT}`.cyan
-      .underline
-  )
-)
+app.listen(PORT, () => console.log(`app is listening on port ${PORT}`));
