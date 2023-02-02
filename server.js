@@ -7,7 +7,7 @@ import authRoutes from './routes/authRoutes.js'
 import shopRoutes from './routes/shopRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
-// import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
+import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
 
 connectDB()
