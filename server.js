@@ -1,4 +1,5 @@
 import express from 'express'
+import morgan from "morgan"
 import path from 'path'
 import connectDB from './config/db.js'
 import colors from 'colors'
@@ -13,11 +14,11 @@ connectDB()
 
 const app = express()
 
-// if (process.env.NODE_ENV === 'DEVELOPMENT') {
-//   app.use(morgan('dev'))
-// }
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  app.use(morgan('dev'))
+}
 
-app.use(express.json())
+app.use(express.json({ extended: false }));
 
 const __dirname = path.resolve()
 
