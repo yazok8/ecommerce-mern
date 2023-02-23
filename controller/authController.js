@@ -23,7 +23,7 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
   })
 
-  if (user) {
+  if (user) { 
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -110,7 +110,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.json({ message: 'user removed' })
   } else {
     res.status(404)
-    throw new Error('User not found')
+    throw new Error('user not found')
   }
 })
 
