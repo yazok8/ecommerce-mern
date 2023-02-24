@@ -1,11 +1,10 @@
-import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
 import { admin, protect } from '../middlewares/userMiddleware.js'
 
 // desc fetch all shop products...
 // route GET /api/shop...
 // access Public
-const getProducts = asyncHandler(async (req, res) => {
+const getProducts = async (req, res) => {
   const pageSize = 10
   const page = Number(req.query.pageNumber) || 1
 
@@ -24,12 +23,12 @@ const getProducts = asyncHandler(async (req, res) => {
     .skip(pageSize * (page - 1))
 
   res.json({ products, page, pages: Math.ceil(count / pageSize) })
-})
+}
 
 // desc fetch a single product...
 // route GET /api/shop/:id...
 // access Public
-const getProductById = asyncHandler(async (req, res) => {
+const getProductById = async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (product) {
@@ -38,12 +37,12 @@ const getProductById = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('Product not found')
   }
-})
+}
 
 // desc detel a product
 // route DELETE /api/products/:id
 // access Private admin
-const deleteProduct = asyncHandler(async (req, res) => {
+const deleteProduct = async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   //we can use use to only enable only the admin who creates the product to be able to delete the product
@@ -56,13 +55,13 @@ const deleteProduct = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('Product not found')
   }
-})
+}
 
 // desc create a product
 // route CREATE /api/products
 // access Private admin
 
-const createProduct = asyncHandler(async (req, res) => {
+const createProduct = async (req, res) => {
   const product = new Product({
     name: 'Sample',
     price: 0,
@@ -77,12 +76,12 @@ const createProduct = asyncHandler(async (req, res) => {
 
   const createdProduct = await product.save()
   res.status(201).json(createdProduct)
-})
+}
 
 // desc update a product
 // route PUT /api/products/:id
 // access Private Admin
-const updateProduct = asyncHandler(async (req, res) => {
+const updateProduct = async (req, res) => {
   const { name, price, description, image, brand, category, countInStock } =
     req.body
 
@@ -103,12 +102,12 @@ const updateProduct = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('Product not found')
   }
-})
+}
 
 // desc create new review
 // route POST /api/products/:id/reviews
 // access Private
-const createReview = asyncHandler(async (req, res) => {
+const createReview = async (req, res) => {
   const { rating, comment } = req.body
 
   const product = await Product.findById(req.params.id)
@@ -143,17 +142,17 @@ const createReview = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('Product not found')
   }
-})
+}
 
 // desc GET top rated products
 // route POST /api/products/top
 // access Public
 
-const getTopRatedProducts = asyncHandler(async (req, res) => {
+const getTopRatedProducts = async (req, res) => {
   const products = await Product.find({}).sort({ rating: -1 }).limit(3)
 
   res.json(products)
-})
+}
 
 export {
   getProducts,

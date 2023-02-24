@@ -1,13 +1,11 @@
 import generateToken from '../utils/generateWebToken.js'
-import asyncHandler from 'express-async-handler'
-import mongoose from 'mongoose'
 
 import User from '../models/userModel.js'
 
 
 //desc register user Public route  Post /api/users/signup
 
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = async (req, res) => {
   const { name, email, password } = req.body
 
   const userExists = await User.findOne({ email })
@@ -35,11 +33,11 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Invalid user data')
   }
-})
+}
 
 //desc  Auth user & get token Public route  Post /api/users/login
 
-const signInUser = asyncHandler(async (req, res) => {
+const signInUser = async (req, res) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email })
@@ -56,15 +54,11 @@ const signInUser = asyncHandler(async (req, res) => {
     res.status(401)
     throw new Error('Invalid email or password')
   }
-})
+}
 
 //desc  get user  profile, Private Route GET /api/users/profile
 
-const getUserProfile = asyncHandler(async (req, res) => {
-
-  // const user = await User.findById(req.user.id)
-
-  console.log(req.user.id)
+const getUserProfile = async (req, res) => {
 
   if (user) {
     res.json({
@@ -77,13 +71,12 @@ const getUserProfile = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('User not found')
   }
-})
+}
 
 //desc update user profile, Private route PUT /api/users/profile
 
-const updateUserProfile = asyncHandler(async (req, res) => {
+const updateUserProfile = async (req, res) => {
   const user = await User.findById(req.user.id)
-  console.log(req.user.id)
   const { name, email, password } = req.body
   if (name) user.name = name
   if (email) user.email = email
@@ -91,19 +84,18 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   await user.save()
 
   res.json(user)
-})
+}
 
 //desc  Get all user profile, Private /api/users Route GET /api/users/
 
-const getUsers = asyncHandler(async (req, res) => {
+const getUsers = async (req, res) => {
   const users = await User.find({})
   res.json(users)
-})
+}
 
 //desc Delete user, Private route DELETE /api/users/:id Private Admin Route
-const deleteUser = asyncHandler(async (req, res) => {
+const deleteUser = async (req, res) => {
   const user = await User.findById(req.params.id)
-  console.log(req.user.id)
 
   if (user) {
     await user.remove()
@@ -112,10 +104,10 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('user not found')
   }
-})
+}
 
 //desc get user by Id, Private route GET /api/users/:id Private Admin route
-const getUserById = asyncHandler(async (req, res) => {
+const getUserById = async (req, res) => {
   const user = await User.findById(req.params.id).select('-password')
 
   if (user) {
@@ -124,12 +116,11 @@ const getUserById = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('User not found')
   }
-})
+}
 //desc update user by Id, Private route Put /api/users/:id Private Admin route
 
-const updateUser = asyncHandler(async (req, res) => {
+const updateUser = async (req, res) => {
   const user = await User.findById(req.params.id)
-  console.log(req.user.id)
   const { name, email, password } = req.body
   if (name) user.name = name
   if (email) user.email = email
@@ -137,7 +128,7 @@ const updateUser = asyncHandler(async (req, res) => {
   await user.save()
 
   res.json(user)
-})
+}
 
 export {
   signInUser,
