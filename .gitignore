@@ -28,3 +28,7 @@ yarn-debug.log*
 yarn-error.log*
 
 seeder.js
+
+docker-compose.yml
+
+data
