@@ -20,7 +20,7 @@ const ProfileScreen = ({ history, location }) => {
 
   //userLogin from the root reducer.
   const userDetails = useSelector((state) => state.userDetails)
-  const { loading, error, user } = userDetails
+  const { loading, user } = userDetails
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -33,7 +33,7 @@ const ProfileScreen = ({ history, location }) => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push('/login')
+      history.push('/api/users/login')
     } else {
       if (!user || !user.name) {
         dispatch(getUserDetails('profile'))
@@ -62,7 +62,6 @@ const ProfileScreen = ({ history, location }) => {
       <Col md={3}>
         <h5>User Profile</h5>
         {message && <Message variant="danger">{message}</Message>}
-        {error && <Message variant="danger">{error}</Message>}
         {success && <Message variant="success">Profile Updated</Message>}
         {loading && <Loader />}
 

@@ -1,0 +1,27 @@
+import dotenv from 'dotenv'
+import mongoose from 'mongoose'
+import keys from "../keys.js"
+
+dotenv.config();
+
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  autoIndex: false,
+};
+
+const connectDB = () => {
+  mongoose.set('strictQuery', false);
+
+  try {
+    const conn = mongoose.connect(keys.MONGO_URI, options);
+    
+    console.log(`MongoDB is connected`)
+  } catch (err) {
+    console.log(`Error: ${err.message}`)
+    //Exit process with failure
+    process.exit(1)
+  }
+}
+
+export default connectDB
