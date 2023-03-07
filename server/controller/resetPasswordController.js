@@ -27,10 +27,10 @@ exports.resetPassword = async (req, res) => {
       resetPasswordExpires: { $gt: Date.now() },
     })
     if (!user) {
-      throw new Error('Token is invalid or has expired.')
+      console.log('Token is invalid or has expired.')
     }
     if (!req.body.password) {
-      throw new Error('No new password provided.')
+      console.log('No new password provided.');
     }
     user.password = req.body.password
     user.resetPasswordToken = undefined

@@ -10,8 +10,10 @@ const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
 
-  //calculate prices
+  const user = useSelector((state) => state.userLogin);
+  const { userInfo } = user;
 
+  //calculate prices
   const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2)
 
   cart.itemsPrice = addDecimals(
@@ -33,12 +35,13 @@ const PlaceOrderScreen = ({ history }) => {
     if (success) {
       history.push(`/order/${order._id}`)
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, success])
 
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
+        user:userInfo._id,
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
@@ -136,9 +139,11 @@ const PlaceOrderScreen = ({ history }) => {
                   <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant="danger">{error}</Message>}
-              </ListGroup.Item>
+              {error && (
+    <ListGroup.Item>
+        <Message variant='danger'>{error}</Message>
+    </ListGroup.Item>
+)}
               <ListGroup.Item>
                 <Button
                   type="button"

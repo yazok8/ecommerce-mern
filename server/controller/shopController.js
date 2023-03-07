@@ -25,7 +25,7 @@ const getProducts = async (req, res) => {
        res.json({ products, page, pages: Math.ceil(count / pageSize) })
       
     } catch (error) {
-      res.status(500).json({ err })
+      res.status(500).json({ error })
     }
 
 
@@ -43,7 +43,7 @@ const getProductById = async (req, res) => {
   }
  
   } catch(err) {
-      console.log(error.message);
+      console.log(err.message);
       res.status(404).json({msg:"Product not found"})
    
   }
@@ -135,7 +135,7 @@ const updateProduct = async (req, res) => {
 // route POST /api/products/:id/reviews
 // access Private
 const createReview = async (req, res) => {
-  const { rating, comment } = req.body
+  const { rating, comment } = req.body;
 
   try {
     const product = await Product.findById(req.params.id)
@@ -147,7 +147,7 @@ const createReview = async (req, res) => {
   
       if (alreadyRviewed) {
         res.status(400)
-        throw new Error('Product already reviewed')
+        console.log('Product already reviewed');
       }
       const review = {
         name: req.user.name,
@@ -183,7 +183,7 @@ const getTopRatedProducts = async (req, res) => {
     const products = await Product.find({}).sort({ rating: -1 }).limit(3)
     res.json(products)
   }catch(error){
-    res.status(500).json({ err })
+    res.status(500).json({ error })
   }
 
 }

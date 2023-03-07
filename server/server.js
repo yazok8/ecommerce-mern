@@ -6,7 +6,6 @@ import authRoutes from './routes/authRoutes.js'
 import shopRoutes from './routes/shopRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
-import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
 import keys from './keys.js'
 
@@ -47,12 +46,6 @@ if (keys.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', '/build', 'index.html'));
   })
 }
-
-// //Error NotFound
-
-app.use(notFound)
-
-app.use(errorHandler)
 
 const PORT = keys.PORT || 5000
 

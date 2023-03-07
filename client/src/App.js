@@ -19,8 +19,12 @@ import UserListScreen from './pages/userlist.screen'
 import UserEditScreen from './pages/useredit.screen'
 import ProductListScreen from './pages/ProductList.screen'
 import ProductEditScreen from './pages/productedit.screen'
+import store from './store'
 
 const App = () => {
+  
+  window.store = store;
+
   return (
     <Router>
       <Header />

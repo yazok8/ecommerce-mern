@@ -12,8 +12,7 @@ const registerUser = async (req, res) => {
     const userExists = await User.findOne({ email })
 
     if (userExists) {
-      res.status(400)
-      throw new Error('User already exists')
+      res.status(400).json({message: 'User already exists'})
     }
   
     const user = await User.create({
@@ -78,22 +77,28 @@ const getUserProfile = async (req, res) => {
       } 
     
   } catch (error) {
-    await res.status(404)
-    throw new Error('User not found')
+    res.status(404).json({error})
   }
 }
 
 //desc update user profile, Private route PUT /api/users/profile
 
 const updateUserProfile = async (req, res) => {
-  const user = await User.findById(req.user.id)
-  const { name, email, password } = req.body
-  if (name) user.name = name
-  if (email) user.email = email
-  if (password) user.password = password
-  await user.save()
 
-  await res.json(user)
+  try {
+    const user = await User.findById(req.user.id)
+    const { name, email, password } = req.body
+    if (name) user.name = name
+    if (email) user.email = email
+    if (password) user.password = password
+    await user.save()
+    res.json(user)
+    
+  } catch (error) {
+    res.status(404).json({error})
+    
+  }
+
 }
 
 //desc  Get all user profile, Private /api/users Route GET /api/users/
