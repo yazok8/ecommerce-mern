@@ -32,3 +32,6 @@ seeder.js
 docker-compose.yml
 
 data
+
+/package-lock.json
+package-lock.json/
