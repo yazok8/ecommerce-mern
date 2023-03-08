@@ -14,7 +14,7 @@ const connectDB = () => {
   mongoose.set('strictQuery', false);
 
   try {
-    const conn = mongoose.connect(keys.MONGO_URI, options);
+    const conn = mongoose.connect(process.env.MONGO_URI, options);
     
     console.log(`MongoDB is connected`)
   } catch (err) {
