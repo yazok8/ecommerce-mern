@@ -10,15 +10,18 @@ export const Cartscreen = ({ match, location, history }) => {
   const productId = match.params.id
 
   //We use location to get a query string to get location?qty=1
-  const qty = location.search ? Number(location.search.split('=')[1]) : 1
+  const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
-  const dispatch = useDispatch()
+  console.log(qty)
+
+  const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
   useEffect(() => {
     if (productId) dispatch(addToCart(productId, qty))
+    console.log(qty)
   }, [dispatch, productId, qty])
 
   const removeFromCartHandler = (id) => {
@@ -54,7 +57,7 @@ export const Cartscreen = ({ match, location, history }) => {
                     ></Image>
                   </Col>
                   <Col md={3}>
-                    <Link to={`product/${item.product}`}>{item.name}</Link>
+                    <Link to={`/products/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>

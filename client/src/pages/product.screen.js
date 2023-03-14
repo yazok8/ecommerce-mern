@@ -76,17 +76,29 @@ const ProductScreen = ({ history, match }) => {
               />
             </Col>
             <Col md={4}>
-              <ListGroup variant="flush">
+            <ListGroup variant="flush">
                 <ListGroup.Item className='pt-0 pb-1 px-0'>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
-                <Rating
-                  value={product.rating}
-                  text={`${product.numReviews} reviews`}
-                ></Rating>
-              </ListGroup>
+                <ListGroup.Item>
+                {product && product.rating && (
+										<Rating
+											value={product.rating}
+											text={`${
+												product.numReviews
+											} Review${
+												product.numReviews > 1
+													? 's'
+													: ''
+											}`}
+										/>
+									)}
+                </ListGroup.Item>
+                
+          
               <ListGroup>Price: ${product.price}</ListGroup>
               <ListGroup>description: {product.description}</ListGroup>
+              </ListGroup>
             </Col>
             <Col md={3}>
               <Card>

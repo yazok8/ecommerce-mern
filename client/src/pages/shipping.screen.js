@@ -30,28 +30,26 @@ const ShippingScreen = ({ history }) => {
         <CheckoutSteps step1 step2 />
         <h5>Shipping Information</h5>
         <Form onSubmit={submitHandler}>
-          <Form.Group controlId="address">
+        <Form.Group controlId="address">
             <Form.Label>Address:</Form.Label>
             <Form.Control
               text="address"
               placeholder="Enter address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              required={true}
             ></Form.Control>
           </Form.Group>
-        </Form>
-        <Form onSubmit={submitHandler}>
-          <Form.Group controlId="city">
+        <Form.Group controlId="city">
             <Form.Label>city:</Form.Label>
             <Form.Control
               text="city"
               placeholder="Enter city"
               value={city}
               onChange={(e) => setCity(e.target.value)}
+              required={true}
             ></Form.Control>
           </Form.Group>
-        </Form>
-        <Form onSubmit={submitHandler}>
           <Form.Group controlId="postalCode">
             <Form.Label>Postal Code:</Form.Label>
             <Form.Control
@@ -59,10 +57,9 @@ const ShippingScreen = ({ history }) => {
               placeholder="Enter postal code"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
+              required={true}
             ></Form.Control>
           </Form.Group>
-        </Form>
-        <Form onSubmit={submitHandler}>
           <Form.Group controlId="country">
             <Form.Label>country:</Form.Label>
             <Form.Control
@@ -70,12 +67,14 @@ const ShippingScreen = ({ history }) => {
               placeholder="Enter country"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
+              required={true}
             ></Form.Control>
           </Form.Group>
           <Button type="submit" variant="primary">
             Continue
           </Button>
         </Form>
+
       </FormContainer>
     </div>
   )

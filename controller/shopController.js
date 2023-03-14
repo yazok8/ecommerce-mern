@@ -1,9 +1,10 @@
 import Product from '../models/productModel.js'
+import asyncHandler  from 'express-async-handler';
 
 // desc fetch all shop products...
 // route GET /api/shop...
 // access Public
-const getProducts = async (req, res) => {
+const getProducts = asyncHandler(async (req, res) => {
   const pageSize = 10
   const page = Number(req.query.pageNumber) || 1
 
@@ -16,57 +17,49 @@ const getProducts = async (req, res) => {
       }
     : {}
 
-    try {
       const count = await Product.countDocuments({ ...keyword })
       const products = await Product.find({ ...keyword })
         .limit(pageSize)
         .skip(pageSize * (page - 1))
     
        res.json({ products, page, pages: Math.ceil(count / pageSize) })
-      
-    } catch (error) {
-      res.status(500).json({ error })
-    }
-
-
-}
+});
 
 // desc fetch a single product...
 // route GET /api/shop/:id...
 // access Public
-const getProductById = async (req, res) => {
-  try{
+const getProductById = asyncHandler (async(req, res) => {
+  
     const product = await Product.findById(req.params.id)
 
     if (product) {
       res.json(product)
-  }
+  
  
-  } catch(err) {
+  } else {
       console.log(err.message);
       res.status(404).json({msg:"Product not found"})
    
   }
-}
+})
 
 // desc detel a product
 // route DELETE /api/products/:id
 // access Private admin
-const deleteProduct = async (req, res) => {
-  try {
+const deleteProduct = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
 
     if (product) {
       await product.remove()
       res.json({ message: 'product removed' }) 
   } 
-}
-  catch (error) {
+
+  else {
     console.log(error.message);
     res.status(404).json({msg:"Product not found"})
 
    }
-  }
+  })
 
 
 
@@ -74,9 +67,7 @@ const deleteProduct = async (req, res) => {
 // route CREATE /api/products
 // access Private admin
 
-const createProduct = async (req, res) => {
-
-  try {
+const createProduct = asyncHandler(async (req, res) => {
     const product = new Product({
       name: 'Sample',
       price: 0,
@@ -91,53 +82,44 @@ const createProduct = async (req, res) => {
   
     const createdProduct = await product.save()
     res.status(201).json(createdProduct)
-    
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({message:"Server error"})
-    
-  }
 
 
-}
+})
 
 // desc update a product
 // route PUT /api/products/:id
 // access Private Admin
-const updateProduct = async (req, res) => {
-  const { name, price, description, image, brand, category, countInStock } =
+const updateProduct = asyncHandler( async (req, res) => {
+  const { name, price, description, image, brand, category, countInStock, numReviews } =
     req.body
-
-    try {
       const product = await Product.findById(req.params.id)
 
   if (product) {
-    product.name = name
-    product.price = price
-    product.description = description
-    product.image = image
-    product.brand = brand
-    product.category = category
-    product.countInStock = countInStock
+		if (name) product.name = name;
+		if (price) product.price = price;
+		if (brand) product.brand = brand;
+		if (category) product.category = category;
+		if (numReviews) product.numReviews = numReviews;
+		if (countInStock) product.countInStock = countInStock;
+		if (description) product.description = description;
+		if (image) product.image = image;
 
     const updatedProduct = await product.save()
-    res.json(updatedProduct)
+    if (updatedProduct) res.status(201).json(updatedProduct);
   }
       
-    } catch (error) {
-      console.log(error.message)
+ else{
+    console.log(error.message)
     res.status(404),json({message:'Product not found'})
     }
   
-}
+})
 
 // desc create new review
 // route POST /api/products/:id/reviews
 // access Private
-const createReview = async (req, res) => {
+const createReview = asyncHandler (async (req, res) => {
   const { rating, comment } = req.body;
-
-  try {
     const product = await Product.findById(req.params.id)
 
     if (product) {
@@ -149,31 +131,31 @@ const createReview = async (req, res) => {
         res.status(400)
         console.log('Product already reviewed');
       }
-      const review = {
+      const newReview = {
         name: req.user.name,
+        avatar:req.user.avatar,
         rating: Number(rating),
         comment,
         user: req.user._id,
       }
   
-      product.reviews.push(review)
+      product.reviews.push(newReview)
   
       product.numReviews = product.reviews.length
   
       product.rating =
         product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-        product.reviews.length
+        product.numReviews
   
-      await product.save()
-      res.status(201).json({ message: 'review added' })
-    }
+        const updatedProduct = await product.save();
+        if (updatedProduct) res.status(201).json({ message: 'Review Added' });
     
-  } catch (error) {
+  else {
     console.log(error.message);
     res.status(404).json({message:'Product not found'})
   }
 }
-
+})
 // desc GET top rated products
 // route POST /api/products/top
 // access Public

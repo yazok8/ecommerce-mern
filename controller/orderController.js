@@ -104,9 +104,8 @@ const updateOrderToBeDelivered = async (req, res) => {
 
 // Get user logged in orders, private route GET /api/orders/myorders
 
-const getMyOrders = async (req, res) => {
-  const { id } = req.user._id;
-  const orders = await Order.find(id);
+const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({user:req.user._id});
   try {
 
     res.json(orders);
@@ -114,7 +113,7 @@ const getMyOrders = async (req, res) => {
     console.log(error)
     res.status(500).json({ error });
   }
-};
+});
 
 // Get All logged in orders, Private route GET /api/orders
 const getOrders = async (req, res) => {
