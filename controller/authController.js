@@ -67,7 +67,6 @@ const getUserProfile = asyncHandler (async (req, res) => {
     if (user) {
       res.json({
           _id: user._id,
-          avatar: user.avatar,
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
@@ -84,14 +83,16 @@ const getUserProfile = asyncHandler (async (req, res) => {
 
 const updateUserProfile = asyncHandler (async (req, res) => {
 
+  const user = await User.findById(req.user.id);
+
 // do not include the hashed password when fetching this user
 if (user) {
-  // update whicever field was sent in the rquest body
-  const user = await User.findById(req.user.id)
-  const { name, email, password } = req.body
-  if (name) user.name = name
-  if (email) user.email = email
-  if (password) user.password = password
+  user.name = req.body.name || user.name;
+  if (req.body.email) req.body.email === user.email;
+  user.email = req.body.email || user.email;
+  if (req.body.password) {
+    user.password = req.body.password;
+  }
   await user.save()
   res.json(user)
 } else {
