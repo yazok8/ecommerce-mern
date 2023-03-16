@@ -19,7 +19,7 @@ router.post('/login', signInUser)
 router.route('/').post(registerUser).get(protect, admin, getUsers)
 
 router
-  .route('/user/profile')
+  .route('/profile')
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile)
 

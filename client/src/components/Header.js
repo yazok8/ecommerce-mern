@@ -1,20 +1,36 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import { Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import {CART_RESET} from "../actions/cart/cart.types"
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
-import { logout } from '../actions/user/user.action'
+import { getUserDetails, logout } from '../actions/user/user.action'
 import SearchBox from './SearchBox'
 
 const Header = () => {
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
+  const cart = useSelector((state) => state.cart)
+  const { cartItems,shippingAddress } = cart;
+  const [count, setCount] = useState(0);
 
   //we got useInfo from the userLogin state.
   const { userInfo } = userLogin
 
+  useEffect(() => {
+		if ( userInfo) {
+			const user = JSON.parse(localStorage.getItem('userInfo'));
+			user && dispatch(getUserDetails(user.email));
+		}
+	}, [dispatch, userInfo]);
+
+  useEffect(() => {
+		setCount(cartItems.reduce((acc, item) => acc + item.qty, 0));
+	}, [cartItems]);
+
   const logoutHandler = () => {
     dispatch(logout())
+    window.location.href = '/';
   }
 
   return (
@@ -43,8 +59,8 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to="/profile">
+                <NavDropdown className='mr-0' title={userInfo.name} id="username">
+                  <LinkContainer to="/user/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
 

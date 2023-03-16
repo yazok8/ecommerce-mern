@@ -86,12 +86,6 @@ const OrderScreen = ({ match, history }) => {
     }
   }, [dispatch, orderId, successPay, order, successDelivery, userInfo, history])
 
-  //   addPaypalScript()
-  //   if (!order || order._id !== orderId) {
-  //     dispatch(getOrderDetails(orderId))
-  //   }
-  // }, [dispatch, order, orderId])
-
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
@@ -167,7 +161,7 @@ const OrderScreen = ({ match, history }) => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>
+                          <Link to={`/products/${item.product}`}>
                             {item.name}
                           </Link>
                         </Col>

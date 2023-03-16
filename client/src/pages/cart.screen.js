@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
@@ -7,6 +7,8 @@ import { addToCart, removeFromCart } from '../actions/cart/cart.action'
 
 //we use history to redirect
 export const Cartscreen = ({ match, location, history }) => {
+  const [totalItems, setTotalItems] = useState(0);
+
   const productId = match.params.id
 
   //We use location to get a query string to get location?qty=1
@@ -19,9 +21,20 @@ export const Cartscreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
+  const userLogin = useSelector((state) => state.userLogin);
+	const { userInfo } = userLogin;
+
+  // store total items to local state
+	useEffect(() => {
+		if (cartItems) {
+			setTotalItems(cartItems.reduce((acc, item) => acc + item.qty, 0));
+		}
+	}, [cartItems]);
+
+
+
   useEffect(() => {
     if (productId) dispatch(addToCart(productId, qty))
-    console.log(qty)
   }, [dispatch, productId, qty])
 
   const removeFromCartHandler = (id) => {
@@ -99,10 +112,14 @@ export const Cartscreen = ({ match, location, history }) => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               {/* accumulator */}
-              <h2>
+              <h2 className='text-center'>
+								Subtotal ({totalItems}) Item  
+								{totalItems > 1 && 's'}
+							</h2>
+              <strong>
                 Subtotal({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items{' '}
-              </h2>
+              </strong>
               $
               {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)

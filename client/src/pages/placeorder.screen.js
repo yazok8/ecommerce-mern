@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
+import {CART_RESET} from "../actions/cart/cart.types"
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
@@ -9,6 +10,7 @@ import { createOrder } from '../actions/order/order.action'
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
+  const {shippingAddress } = cart;
 
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
@@ -33,6 +35,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (success) {
+      dispatch({ type: CART_RESET, payload: shippingAddress }); 
       history.push(`/order/${order._id}`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
