@@ -145,6 +145,7 @@ const getUserById = asyncHandler ( async(req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
  // do not include the hashed password when fetching this user
  const user = await User.findById(req.params.id).select('-password');
+ 
  if (user) {
    // update whicever field was sent in the rquest body
    user.name = req.body.name || user.name;
@@ -163,7 +164,7 @@ const updateUser = asyncHandler(async (req, res) => {
    }
  } else {
    res.status(400);
-   throw new Error('User not found.');
+   console.log('User not found')
  }
 
 })
