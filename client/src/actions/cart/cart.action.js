@@ -4,7 +4,6 @@ import {
   CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
   REMOVE_CART_ITEM,
-  SAVE_CART_DATA
 } from './cart.types'
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {

@@ -1,7 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import { Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import {CART_RESET} from "../actions/cart/cart.types"
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { getUserDetails, logout } from '../actions/user/user.action'
