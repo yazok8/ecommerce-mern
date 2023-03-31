@@ -80,7 +80,7 @@ const ProductScreen = ({ history, match }) => {
                 <ListGroup.Item className='pt-0 pb-1 px-0'>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
-                <ListGroup.Item>
+                <ListGroup.Item style={{paddingInline:'0px'}}>
                 {product && product.rating && (
 										<Rating
 											value={product.rating}
@@ -90,7 +90,7 @@ const ProductScreen = ({ history, match }) => {
 												product.numReviews > 1
 													? 's'
 													: ''
-											}`}
+											}`} 
 										/>
 									)}
                 </ListGroup.Item>
@@ -109,22 +109,6 @@ const ProductScreen = ({ history, match }) => {
                       <Col>
                         <strong>${product.price}</strong>
                       </Col>
-                      {/* <ul className="images">
-                      {' '}
-                      {[product.image, ...product.images].map((x) => (
-                        <li key={x}>
-                          {' '}
-                          <button
-                            type="button"
-                            className="light"
-                            onClick={() => changeImage(x)}
-                          >
-                            {' '}
-                            <img src={x} alt="product" className="small" />{' '}
-                          </button>{' '}
-                        </li>
-                      ))}{' '}
-                    </ul> */}
                     </Row>
                   </ListGroup.Item>
                 </ListGroup>
@@ -225,7 +209,7 @@ const ProductScreen = ({ history, match }) => {
                     </Button>
                   </Form>
                 ) : (
-                  <Message>
+                  <Message style={{padding:'0px'}}>
                     Please <Link to="/login">Please sign in</Link> to write a
                     review
                   </Message>

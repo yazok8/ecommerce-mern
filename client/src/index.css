@@ -2,7 +2,7 @@ main {
   min-height: 80vh;
 }
 body {
-  font-family: 'open-sans', sans-serif;
+  font-family: "open-sans", sans-serif;
 }
 
 h1 {
@@ -36,32 +36,76 @@ h5 {
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item:active {
-    display: flex
+  display: flex;
 }
 
 .carousel-inner {
-    text-align: center;
+  text-align: center;
 }
 
 div.carousel-caption {
-    font-size: 1.2em;
-    padding: 0;
-    margin-bottom: -0.8em;
+  font-size: 1.2em;
+  padding: 0;
+  margin-bottom: -0.8em;
 }
 
 .carousel img {
-    height: 30vh;
-    border-radius: 50%;
-    width: 30vh;
-    object-fit: cover;
-    margin: 0.5em auto 2.5em auto;
+  height: 30vh;
+  border-radius: 50%;
+  width: 30vh;
+  object-fit: cover;
+  margin: 0.5em auto 2.5em auto;
 }
 
 .carousel a {
-    margin: 0 auto;
+  margin: 0 auto;
 }
-@media screen and (max-width: 430px) {
+
+/* Homepage products */
+
+.card {
+  min-height: 20rem;
+  align-items: center;
+  background-color: ghostwhite;
+}
+
+.card-body {
+  padding: 0;
+  text-align: center;
+}
+
+.card-title {
+  max-width: 14rem;
+}
+
+.card img {
+  max-width: 11rem;
+  min-height: 11rem;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+@media screen and (max-width: 600px) {
   .carousel {
-      display: none;
+    display: none;
+  }
+
+  .card-body {
+    padding: 0;
+  }
+
+  .row {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .card {
+    min-height: 19rem;
   }
 }
