@@ -9,11 +9,11 @@ const options = {
   autoIndex: false,
 };
 
-const connectDB = () => {
+const connectDB = async() => {
   mongoose.set('strictQuery', false);
 
   try {
-    const conn = mongoose.connect(process.env.MONGO_URI, options);
+    const conn = await mongoose.connect(process.env.MONGO_URI, options);
     
     console.log(`MongoDB is connected`)
   } catch (err) {
