@@ -3,17 +3,14 @@ import mongoose from 'mongoose'
 
 dotenv.config();
 
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  autoIndex: false,
-};
-
 const connectDB = async() => {
-  mongoose.set('strictQuery', false);
-
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, options);
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    });
     
     console.log(`MongoDB is connected`)
   } catch (err) {
